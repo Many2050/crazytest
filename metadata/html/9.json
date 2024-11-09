@@ -1,0 +1,27 @@
+{
+  "name": "CrazyHamsters #9",
+  "description": "Un NFT interactivo",
+  "image": "https://many2050.github.io/crazytest/images/9.png",
+  "animation_url": "https://many2050.github.io/crazytest/metadata/html/9.html",
+  "attributes": [
+    {
+      "trait_type": "item",
+      "value": "Plant",
+      "effect": "bounce"
+    },
+    {
+      "trait_type": "pet",
+      "value": "Ghost",
+      "effect": "spin"
+    },
+    {
+      "trait_type": "thought",
+      "value": "Nintendo Switch Yellow",
+      "effect": "wobble"
+    }
+  ],
+  "dna": "3f1484a40a4671bb66ba246e047d2b5a",
+  "date": "2024-11-09",
+  "edition": 9,
+  "artist": "PixelArtLabX"
+}

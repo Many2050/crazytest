@@ -1,0 +1,27 @@
+{
+  "name": "CrazyHamsters #6",
+  "description": "Un NFT interactivo",
+  "image": "https://many2050.github.io/crazytest/images/6.png",
+  "animation_url": "https://many2050.github.io/crazytest/metadata/html/6.html",
+  "attributes": [
+    {
+      "trait_type": "item",
+      "value": "Basketball Ball",
+      "effect": "water"
+    },
+    {
+      "trait_type": "pet",
+      "value": "Brown Rabbit",
+      "effect": "lightning"
+    },
+    {
+      "trait_type": "thought",
+      "value": "Pear",
+      "effect": "swing"
+    }
+  ],
+  "dna": "a8fe7c5a172bbab7628e3403036c9ab9",
+  "date": "2024-11-09",
+  "edition": 6,
+  "artist": "PixelArtLabX"
+}

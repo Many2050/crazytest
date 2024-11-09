@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CrazyHamsters #7</title>
+    <link rel="stylesheet" href="https://many2050.github.io/crazytest/css/style.css">
+    <script src="https://many2050.github.io/crazytest/js/script.js" defer></script>
+</head>
+<body>
+    <div class="image-container">
+        <img src="https://many2050.github.io/crazytest/images/7.png" alt="Main Image">
+        <img src="https://many2050.github.io/crazytest/Overlays/Items/Tennis_Ball.png" alt="Item" class="overlay float">
+        <img src="https://many2050.github.io/crazytest/Overlays/Pets/White_Rabbit.png" alt="Pet" class="overlay bounce">
+        <img src="https://many2050.github.io/crazytest/Overlays/Thoughts/Pink_Skates.png" alt="Thought" class="overlay flash">
+        <div class="buttons-container">
+            <button style="background-color: red;" onclick="toggleOverlay(this, 'float')">I</button>
+            <button style="background-color: green;" onclick="toggleOverlay(this, 'bounce')">P</button>
+            <button style="background-color: blue;" onclick="toggleOverlay(this, 'flash')">T</button>
+        </div>
+    </div>
+    <script>
+        function toggleOverlay(button, effect) {
+            const overlay = document.querySelector('.' + effect);
+            if (overlay) {
+                overlay.style.display = overlay.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+    </script>
+</body>
+</html>
