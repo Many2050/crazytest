@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NFT Interactivo</title>
+    <style>
+        body { margin: 0; } /* Elimina los márgenes del cuerpo para que el canvas ocupe todo el espacio */
+        canvas { display: block; } /* Evita espacios adicionales alrededor del canvas */
+    </style>
+</head>
+<body>
+    <canvas id="miCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById('miCanvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth; // Ajusta el ancho del canvas al ancho de la ventana
+        canvas.height = window.innerHeight; // Ajusta la altura del canvas a la altura de la ventana
+        
+        // Código para dibujar en el canvas (ejemplos abajo)
+        let x = 50;
+        let y = 50;
+        let radius = 20;
+
+        function drawCircle() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpia el canvas
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.fillStyle = 'red';
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        drawCircle();
+
+        canvas.addEventListener('mousemove', (event) => {
+            x = event.clientX;
+            y = event.clientY;
+            drawCircle();
+        });
+
+        // Asegurar que el canvas se redimensione cuando se redimensiona la ventana
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            drawCircle(); // Redibuja al redimensionar
+        });
+    </script>
+</body>
+</html>
