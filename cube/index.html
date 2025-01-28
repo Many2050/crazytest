@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NFT Animación 3D Interactiva</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        canvas { display: block; }
+        #gui { position: absolute; top: 10px; right: 10px; }
+    </style>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dat.gui@0.7.7/build/dat.gui.min.js"></script>
+
+    <script>
+        let scene, camera, renderer, cube, particles;
+        const params = {
+            rotationSpeed: 0.02,
+            particleCount: 1000,
+            wireframe: false,
+            color: "#00ff00"
+        };
+
+        // Configuración inicial
+        function init() {
+            // Escena
+            scene = new THREE.Scene();
+            
+            // Cámara
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+            camera.position.z = 5;
+
+            // Renderizador
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+
+            // Cubo 3D con textura metálica
+            const geometry = new THREE.BoxGeometry();
+            const material = new THREE.MeshPhongMaterial({ 
+                color: params.color,
+                shininess: 100,
+                wireframe: params.wireframe
+            });
+            cube = new THREE.Mesh(geometry, material);
+            scene.add(cube);
+
+            // Sistema de partículas
+            const particleGeometry = new THREE.BufferGeometry();
+            const positions = [];
+            const colors = [];
+
+            for(let i = 0; i < params.particleCount; i++) {
+                positions.push(
+                    (Math.random() - 0.5) * 10,
+                    (Math.random() - 0.5) * 10,
+                    (Math.random() - 0.5) * 10
+                );
+
+                colors.push(
+                    Math.random(),
+                    Math.random(),
+                    Math.random()
+                );
+            }
+
+            particleGeometry.setAttribute(
+                'position',
+                new THREE.Float32BufferAttribute(positions, 3)
+            );
+
+            particleGeometry.setAttribute(
+                'color',
+                new THREE.Float32BufferAttribute(colors, 3)
+            );
+
+            const particleMaterial = new THREE.PointsMaterial({
+                size: 0.1,
+                vertexColors: true
+            });
+
+            particles = new THREE.Points(particleGeometry, particleMaterial);
+            scene.add(particles);
+
+            // Luces
+            const light = new THREE.PointLight(0xffffff, 1, 100);
+            light.position.set(0, 5, 5);
+            scene.add(light);
+
+            // GUI de controles
+            const gui = new dat.GUI();
+            gui.add(params, 'rotationSpeed', 0, 0.1);
+            gui.add(params, 'particleCount', 100, 5000).onChange(updateParticles);
+            gui.add(params, 'wireframe').onChange(val => cube.material.wireframe = val);
+            gui.addColor(params, 'color').onChange(val => cube.material.color.set(val));
+
+            // Event listeners
+            window.addEventListener('resize', onWindowResize);
+            document.addEventListener('mousemove', onMouseMove);
+        }
+
+        function updateParticles() {
+            scene.remove(particles);
+            init();
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function onMouseMove(event) {
+            cube.rotation.x = (event.clientY / window.innerHeight) * Math.PI;
+            cube.rotation.y = (event.clientX / window.innerWidth) * Math.PI;
+        }
+
+        // Animación
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            // Rotación automática
+            cube.rotation.x += params.rotationSpeed;
+            cube.rotation.y += params.rotationSpeed;
+
+            // Movimiento de partículas
+            const positions = particles.geometry.attributes.position.array;
+            for(let i = 0; i < positions.length; i += 3) {
+                positions[i] += Math.random() * 0.01 - 0.005;
+                positions[i+1] += Math.random() * 0.01 - 0.005;
+                positions[i+2] += Math.random() * 0.01 - 0.005;
+            }
+            particles.geometry.attributes.position.needsUpdate = true;
+
+            renderer.render(scene, camera);
+        }
+
+        init();
+        animate();
+    </script>
+</body>
+</html>
